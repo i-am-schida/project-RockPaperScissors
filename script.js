@@ -4,47 +4,44 @@
 
 
 // STEP 1: Function to obtain a random computer choice
-const getComputerChoice = () => { // computer choice function
-  const choices = ['Rock', 'Paper', 'Scissors']; // creates an array of choices to choose from
+const getComputerChoice = () => {
+  const choices = ['Rock', 'Paper', 'Scissors'];
   const randomIndex = Math.floor(Math.random() * choices.length); // acts as a random generator that chooses an random index per choice
-  return choices[randomIndex]; // returns the matching choice of that index 
+  return choices[randomIndex];
 };
 
-const computerChoice = getComputerChoice(); // the computer's choice is randomly generated from the getComputerChoice function
-// console.log('Computer choice: ' + computerChoice); // logs it ##################################
+const computerChoice = getComputerChoice();
 
 // STEP 2: Function to play a single round
 const playRound = (playerSelection, computerSelection) => {
-  playerSelection = playerSelection.trim().toLowerCase(); // makes user input case-insensitive
-  computerSelection = computerSelection.trim().toLowerCase();
+  playerSelection = playerSelection.trim().toLowerCase(); // makes user input case-insensitive + .trim to deny extra spaces in input
+  computerSelection = computerSelection.trim().toLowerCase(); // makes computer input case-insensitive + .trim to deny extra spaces in input
 
-  if (playerSelection === computerSelection) { // if player selection is the same as computer selection, it will return a tie game.
+  if (playerSelection === computerSelection) {
     return "It's a tie!";
-  } else if ( // if player selection beats computer selection, it will return you won.
+  } else if (
     (playerSelection === 'rock' && computerSelection === 'scissors') ||
     (playerSelection === 'paper' && computerSelection === 'rock') ||
     (playerSelection === 'scissors' && computerSelection === 'paper')
   ) {
     return `You won! ${playerSelection} beats ${computerSelection}`;
-  } else { // anything else and the computer won, it will return you lost.
+  } else {
     return `You lost! ${computerSelection} beats ${playerSelection}`;
   }
 };
 
-// const playerSelection = 'rock'; #########################
 const computerSelection = computerChoice;
-// console.log(playRound(playerSelection, computerSelection)); ########################
 
 // STEP 3: Function to play 5 games in a row
 const game = () => {
-  let playerScore = 0; // Intial player score; zero
-  let computerScore= 0; // Initial computer score; zero
+  let playerScore = 0;
+  let computerScore= 0;
 
   for (let round = 1; round <= 5; round++) { // Using 'for loop' to loop the function 5 times for 5 games, starting at round 1 incrementing by 1 to round 5
-    const playerChoice = prompt(`Round ${round}: Choose your choice (Rock, Paper, Scissors):`) // creates a prompt to allow user to choose Rock Paper or Scissors
-    const computerChoice = getComputerChoice(); // retrieves computer choice
+    const playerChoice = prompt(`Round ${round}: Choose your choice (Rock, Paper, Scissors):`) 
+    const computerChoice = getComputerChoice(); 
 
-    const result = playRound(playerChoice, computerChoice); // play one round
+    const result = playRound(playerChoice, computerChoice); // play one round, based off that one round, log the results, then repeat 5 times
 
     console.log(`Round ${round}:`);
     console.log(`Player chose ${playerChoice}`);
@@ -54,13 +51,13 @@ const game = () => {
       console.log("It's a tie\n");
     } else if (result.startsWith('You won!')) {
       console.log(`You win this round!\n`);
-      playerScore++; // adds one to playerScore if player won
+      playerScore++;
     } else {
       console.log(`Computer wins this round!\n`);
-      computerScore++; // adds one to computerScore if computer won
+      computerScore++;
     }
   }
-// Once the loop is over (5 rounds), log the results
+// Once the loop is over (5 rounds), log the final results
   console.log('Game Over'); 
   console.log(`Player Score: ${playerScore}`);
   console.log(`Computer Score: ${computerScore}`);
